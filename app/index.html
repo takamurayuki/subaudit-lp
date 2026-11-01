@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>無料スキャン | サブスク棚卸し</title>
+<meta name="description" content="カード明細CSVをブラウザ内で解析し、定期課金（サブスク）の合計金額を表示します。明細データは外部に送信されません。">
+<style>
+body{font-family:system-ui,sans-serif;margin:0;background:#f6f7f9;color:#1a1a1a}
+main{max-width:880px;margin:0 auto;padding:24px 16px 56px}
+h1{font-size:26px}
+.drop{border:2px dashed #b9bec7;border-radius:12px;background:#fff;padding:28px;text-align:center}
+.drop input{margin-top:10px}
+.note{color:#666;font-size:13px}
+.summary{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin:16px 0}
+.box{background:#fff;border:1px solid #e2e4e8;border-radius:12px;padding:16px}
+.box .v{font-size:24px;font-weight:700}
+.box .k{color:#666;font-size:13px}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px}
+.card{background:#fff;border:1px solid #e2e4e8;border-radius:12px;padding:16px}
+.card .amt{font-size:22px;font-weight:700}
+.card .amt span{font-size:13px;color:#666;font-weight:400}
+.route{color:#555;font-size:13px}
+.err{background:#fdecec;border:1px solid #f3b6b6;border-radius:8px;padding:12px}
+.cta{display:inline-block;background:#111;color:#fff;padding:12px 20px;border-radius:8px;text-decoration:none;margin-top:12px}
+</style>
+</head>
+<body>
+<main>
+  <p><a href="../">← サブスク棚卸し トップ</a></p>
+  <h1>無料スキャン</h1>
+  <p>カード明細のCSVを選ぶと、定期課金（サブスク）を検出して金額を表示します。</p>
+  <p class="note">明細データはあなたのブラウザ内でのみ処理され、外部に送信されることはありません。対応形式: 日付・摘要（利用先）・金額の列を含むCSV（カード会社の明細ダウンロード等）。文字コードはUTF-8を推奨します。</p>
+  <div class="drop">
+    <p>CSVファイルを選択してください</p>
+    <input type="file" id="file" accept=".csv,text/csv">
+    <p class="note">まずは試したい方へ: <a href="#" id="sample">サンプル明細で試す</a></p>
+  </div>
+  <div id="result"></div>
+  <section id="after" hidden>
+    <h2>継続的な管理について</h2>
+    <p>このスキャンは1回分の棚卸しです。新しいサブスクの発生、値上げ、無料トライアルの有料移行、解約したはずの請求の再発を継続的に見張る有料版（月¥500・予定）は、事前登録を受け付けています。</p>
+    <a class="cta" href="https://docs.google.com/forms/d/e/1FAIpQLSex2LfpXfWyFZOU9Weng0-jPOUp_PP5gYDBgmMYoC1fREkZkw/viewform" target="_blank" rel="noopener">事前登録する</a>
+  </section>
+</main>
+<script type="module" src="./app.js"></script>
+</body>
+</html>
