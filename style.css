@@ -1,0 +1,61 @@
+:root {
+  --bg: #ffffff;
+  --text: #1a1d21;
+  --muted: #5b6470;
+  --accent: #2563eb;
+  --accent-dark: #1e40af;
+  --surface: #f4f6f9;
+  --border: #e2e7ee;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: "Hiragino Kaku Gothic ProN", "Hiragino Sans", "Noto Sans JP", sans-serif;
+  color: var(--text);
+  background: var(--bg);
+  line-height: 1.7;
+}
+a { color: var(--accent); }
+header.site {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 16px 24px; border-bottom: 1px solid var(--border);
+  position: sticky; top: 0; background: var(--bg);
+}
+.logo { font-weight: 700; font-size: 20px; color: var(--text); text-decoration: none; }
+.logo span { color: var(--accent); }
+nav a { margin-left: 20px; color: var(--text); text-decoration: none; font-size: 14px; }
+main { max-width: 880px; margin: 0 auto; padding: 0 24px 64px; }
+.hero { padding: 72px 0 48px; text-align: center; }
+.hero h1 { font-size: 34px; line-height: 1.4; margin: 0 0 16px; }
+.hero p { color: var(--muted); font-size: 17px; margin: 0 auto 32px; max-width: 640px; }
+.cta {
+  display: inline-block; background: var(--accent); color: #fff; text-decoration: none;
+  padding: 14px 32px; border-radius: 8px; font-weight: 700;
+}
+.cta:hover { background: var(--accent-dark); }
+section { padding: 40px 0 8px; }
+h2 { font-size: 24px; margin: 0 0 20px; }
+.cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; }
+.card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 20px; }
+.card h3 { margin: 0 0 8px; font-size: 17px; }
+.card p { margin: 0; color: var(--muted); font-size: 14px; }
+ol.steps li { margin-bottom: 10px; }
+.price-box {
+  border: 2px solid var(--accent); border-radius: 12px; padding: 28px;
+  max-width: 420px; margin: 0 auto; text-align: center;
+}
+.price { font-size: 40px; font-weight: 700; }
+.price small { font-size: 16px; color: var(--muted); font-weight: 400; }
+.price-box ul { text-align: left; margin: 16px 0 24px; }
+.note { color: var(--muted); font-size: 13px; }
+details { border-bottom: 1px solid var(--border); padding: 12px 0; }
+summary { font-weight: 700; cursor: pointer; }
+table.tokusho { border-collapse: collapse; width: 100%; }
+table.tokusho th, table.tokusho td { border: 1px solid var(--border); padding: 10px 14px; text-align: left; vertical-align: top; }
+table.tokusho th { background: var(--surface); width: 30%; }
+footer.site {
+  border-top: 1px solid var(--border); padding: 24px; text-align: center;
+  color: var(--muted); font-size: 13px;
+}
+footer.site a { margin: 0 10px; }
+.legal h2 { font-size: 19px; margin-top: 32px; }
