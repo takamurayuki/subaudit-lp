@@ -50,7 +50,9 @@ function parseLine(line) {
 export function parseCsv(text) {
   const lines = text.replace(/\r\n?/g, "\n").split("\n").filter((l) => l.trim().length > 0);
   if (lines.length < 2) return [];
-  const header = parseLine(lines[0]);
+  const delim = lines[0].includes("\t") ? "\t" : ",";
+  const split = delim === "\t" ? (l) => l.split("\t").map((s) => s.trim()) : parseLine;
+  const header = split(lines[0]);
   const idx = (names) => header.findIndex((h) => names.some((n) => h.includes(n)));
   const di = idx(["date", "日付", "利用日"]);
   const mi = idx(["description", "摘要", "内容", "店舗", "利用先", "加盟店"]);
@@ -58,13 +60,39 @@ export function parseCsv(text) {
   if (di < 0 || mi < 0 || ai < 0) throw new Error("CSVの列を特定できません（日付・摘要・金額の列が必要です）");
   const rows = [];
   for (const line of lines.slice(1)) {
-    const cols = parseLine(line);
+    const cols = split(line);
     const m = (cols[di] ?? "").replace(/\//g, "-").match(/(\d{4})-(\d{1,2})-(\d{1,2})/);
     if (!m) continue;
     const amount = Math.abs(Number((cols[ai] ?? "").replace(/[^0-9.-]/g, "")));
     const description = cols[mi] ?? "";
     if (!description || !Number.isFinite(amount) || amount <= 0) continue;
     rows.push({ date: `${m[1]}-${m[2].padStart(2, "0")}-${m[3].padStart(2, "0")}`, description, amount });
+  }
+  return rows.sort((a, b) => a.date.localeCompare(b.date));
+}
+
+// 貼り付け対応: ヘッダーなし明細（家計簿サイトやカード明細ページからのコピペ等）を
+// 行ごとに「日付 / 摘要 / 金額（最後の数値）」として読み取るフォールバック。
+export function parseStatementText(text) {
+  try {
+    const r = parseCsv(text);
+    if (r.length > 0) return r;
+  } catch { /* フォールバックへ */ }
+  const rows = [];
+  for (const raw of String(text).replace(/\r\n?/g, "\n").split("\n")) {
+    const line = raw.trim();
+    if (!line) continue;
+    const dm = line.match(/(\d{4})[\/-](\d{1,2})[\/-](\d{1,2})/);
+    if (!dm) continue;
+    const rest = `${line.slice(0, dm.index)} ${line.slice(dm.index + dm[0].length)}`.replace(/\t/g, " ");
+    const nums = [...rest.matchAll(/\d[\d,]*\s*(?:円)?/g)]
+      .map((m) => ({ v: Math.abs(Number(m[0].replace(/[^0-9]/g, ""))), i: m.index, raw: m[0] }))
+      .filter((n) => n.v > 0);
+    if (nums.length === 0) continue;
+    const amt = nums[nums.length - 1];
+    const description = `${rest.slice(0, amt.i)} ${rest.slice(amt.i + amt.raw.length)}`.replace(/[,，]/g, " ").replace(/\s+/g, " ").trim();
+    if (!description) continue;
+    rows.push({ date: `${dm[1]}-${dm[2].padStart(2, "0")}-${dm[3].padStart(2, "0")}`, description, amount: amt.v });
   }
   return rows.sort((a, b) => a.date.localeCompare(b.date));
 }

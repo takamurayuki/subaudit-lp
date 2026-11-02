@@ -23,23 +23,41 @@ h1{font-size:26px}
 .route{color:#555;font-size:13px}
 .err{background:#fdecec;border:1px solid #f3b6b6;border-radius:8px;padding:12px}
 .cta{display:inline-block;background:#111;color:#fff;padding:12px 20px;border-radius:8px;text-decoration:none;margin-top:12px}
+.drop.over{border-color:#111;background:#eef4ff}
+textarea{width:100%;box-sizing:border-box;min-height:110px;border:1px solid #cfd4dc;border-radius:8px;padding:10px;font-family:inherit;font-size:13px}
+.paste{margin-top:16px;background:#fff;border:1px solid #e2e4e8;border-radius:12px;padding:16px}
+button.go{background:#111;color:#fff;border:0;padding:10px 18px;border-radius:8px;cursor:pointer;margin-top:10px}
+.flow{background:#fff;border:1px solid #e2e4e8;border-radius:12px;padding:16px;margin:16px 0}
+.flow li{margin:6px 0}
+.assist{border-top:1px dashed #d5d9e0;margin-top:12px;padding-top:10px}
+.assist-h{font-weight:700;margin:4px 0}
+.step{margin:4px 0;font-size:14px}
+.tag{display:inline-block;font-size:12px;font-weight:700;border-radius:999px;padding:2px 10px;margin-right:6px;color:#fff}
+.tag.auto{background:#2563eb}
+.tag.user{background:#d97706}
+.assist .cta{padding:9px 16px;font-size:14px}
 </style>
 </head>
 <body>
 <main>
   <p><a href="../">← サブスク棚卸し トップ</a></p>
   <h1>無料スキャン</h1>
-  <p>カード明細のCSVを選ぶと、定期課金（サブスク）を検出して金額を表示します。</p>
-  <p class="note">明細データはあなたのブラウザ内でのみ処理され、外部に送信されることはありません。対応形式: 日付・摘要（利用先）・金額の列を含むCSV（カード会社の明細ダウンロード等）。文字コードはUTF-8を推奨します。</p>
-  <div class="drop">
-    <p>CSVファイルを選択してください</p>
-    <input type="file" id="file" accept=".csv,text/csv">
-    <p class="note">まずは試したい方へ: <a href="#" id="sample">サンプル明細で試す</a></p>
+  <p>明細を取り込むと、定期課金（サブスク）を検出して金額を表示し、解約まで半自動で案内します。<strong>わざわざCSVに変換する必要はありません。</strong></p>
+  <p class="note">明細データはあなたのブラウザ内でのみ処理され、外部に送信されることはありません。有料版では家計簿サービスとの連携で明細が自動で届きます（事前登録受付中）。</p>
+  <div class="drop" id="drop">
+    <p>明細ファイルをここにドロップ（または選択）</p>
+    <input type="file" id="file" accept=".csv,.tsv,.txt,text/csv,text/plain">
+    <p class="note">CSV / TSV / テキスト形式に対応。まずは試したい方へ: <a href="#" id="sample">サンプル明細で試す</a></p>
+  </div>
+  <div class="paste">
+    <p><strong>貼り付けるだけでもOK</strong> ― 家計簿サービスやカード明細の画面をコピーして貼り付けてください（日付・利用先・金額が含まれる形式）。</p>
+    <textarea id="paste" placeholder="例:&#10;2026/01/05&#9;NETFLIX&#9;1,190&#10;2026/01/15&#9;SPOTIFY&#9;1,080"></textarea>
+    <button class="go" id="pasteBtn">貼り付けた明細を解析する</button>
   </div>
   <div id="result"></div>
   <section id="after" hidden>
     <h2>継続的な管理について</h2>
-    <p>このスキャンは1回分の棚卸しです。新しいサブスクの発生、値上げ、無料トライアルの有料移行、解約したはずの請求の再発を継続的に見張る有料版（月¥500・予定）は、事前登録を受け付けています。</p>
+    <p>このスキャンは1回分の棚卸しです。有料版（月¥500・予定）では、家計簿サービスとの連携で明細が自動で届き、新しいサブスクの発生、値上げ、無料トライアルの有料移行、解約したはずの請求の再発を継続的に見張ります。解約は、ページへの移動と入力補助まで自動化し、ログイン認証と最終確認だけをご本人が行う半自動方式です。事前登録を受け付けています。</p>
     <a class="cta" href="https://docs.google.com/forms/d/e/1FAIpQLSex2LfpXfWyFZOU9Weng0-jPOUp_PP5gYDBgmMYoC1fREkZkw/viewform" target="_blank" rel="noopener">事前登録する</a>
   </section>
 </main>
