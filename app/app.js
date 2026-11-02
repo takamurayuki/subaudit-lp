@@ -3,10 +3,13 @@ import { parseStatementText, detectRecurring, summarize, findGuide } from "./cor
 const yen = (n) => `¥${n.toLocaleString("ja-JP")}`;
 const esc = (s) => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 
-// サービスのアイコン（公式ファビコン）。取得できない場合はブランド色＋頭文字にフォールバック。
+// サービスのアイコン（公式ファビコン）。小さいサイズを指定して高速化し、読み込み中は
+// ブランド色の頭文字タイルを即時表示、画像が届いたらフェードインする。
+// 取得できない場合は頭文字タイルのままになる。
 const icon = (g, name, size) => {
   const initial = esc(String(name).slice(0, 1));
-  const img = g.domain ? `<img class="svc-img" src="https://www.google.com/s2/favicons?domain=${esc(g.domain)}&sz=128" alt="" loading="lazy" onerror="this.remove()">` : "";
+  const px = size === "lg" ? 48 : 24;
+  const img = g.domain ? `<img class="svc-img" src="https://www.google.com/s2/favicons?domain=${esc(g.domain)}&sz=64" alt="" width="${px}" height="${px}" loading="eager" decoding="async" onload="this.style.opacity=1" onerror="this.remove()">` : "";
   return `<span class="svc svc-${size}" style="--c:${esc(g.color || "#2563eb")}"><span class="svc-fallback">${initial}</span>${img}</span>`;
 };
 
@@ -50,15 +53,16 @@ function render(text) {
   const s = summarize(detectRecurring(txns));
   const cards = s.subs.map((r) => {
     const g = findGuide(r.displayName);
-    return `<div class="card" style="--c:${esc(g.color || "#2563eb")}"><h3>${icon(g, r.displayName, "lg")}${esc(r.displayName)}</h3>
-<p class="amt">${yen(r.monthlyEquivalent)}<span>/月換算（${r.cycleLabel} ${yen(r.typicalAmount)}）</span></p>
+    return `<div class="card">
+<div class="card-head">${icon(g, r.displayName, "lg")}<div class="card-title"><h3>${esc(r.displayName)}</h3><p class="meta">${r.cycleLabel} ${yen(r.typicalAmount)} ・ 課金経路: ${esc(g.route)}</p></div><div class="card-amt">${yen(r.monthlyEquivalent)}<span>/月換算</span></div></div>
+<div class="card-body">
 <p>累計 ${yen(r.cumulative)}（${r.count}回） / 初回 ${r.firstDate} / 次回予定 ${r.nextExpectedDate}</p>
 <p>解約すると今後12ヶ月で <strong>${yen(r.annualEquivalent)}</strong> の削減見込み</p>
-<p class="route">課金経路: ${esc(g.route)}</p>
+</div>
 <div class="assist">
-<p class="assist-h">解約アシスト（半自動）</p>
-<p class="step"><span class="tag auto">自動</span> 検出・金額計算・解約ページの用意は完了しています</p>
-<p class="step"><span class="tag user">本人</span> あなたはログイン認証と「解約を実行する」の承認だけ。承認後は解約完了まで自動で進みます</p>
+<p class="assist-h">解約アシスト</p>
+<p class="step"><span class="tag auto">自動</span> 検出・金額計算・解約ページへの遷移・画面の入力はすべて自動です</p>
+<p class="step"><span class="tag user">本人</span> あなたはログイン認証と、最後に解約ボタンを押すだけです</p>
 ${g.url ? `<p><a class="cta" href="${esc(g.url)}" target="_blank" rel="noopener">解約ページへ進む（${esc(g.service)}）</a></p>` : `<p class="note">このサービスの解約ページは調査中です</p>`}
 </div></div>`;
   }).join("\n");
@@ -78,7 +82,7 @@ ${g.url ? `<p><a class="cta" href="${esc(g.url)}" target="_blank" rel="noopener"
 <ol>
 <li><span class="tag auto">自動</span> 明細を取り込んで定期課金を検出</li>
 <li><span class="tag auto">自動</span> 金額（月額・累計・削減見込み）と解約ページを用意</li>
-<li><span class="tag user">本人</span> ログイン認証と「解約を実行する」の承認だけ。承認後は自動で解約完了まで進み、完了画面を確認します</li>
+<li><span class="tag user">本人</span> ログイン認証と、最後に解約ボタンを押すだけ。それ以外（遷移・入力・確認画面の記録）は自動です</li>
 </ol>
 <p class="note">有料版では、家計簿サービスとの連携で明細が自動で届き、解約ページへの移動と入力補助まで自動化します。認証情報は預かりません。</p>
 </div>
