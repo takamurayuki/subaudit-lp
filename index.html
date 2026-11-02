@@ -3,35 +3,82 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>サブスク棚卸し | 使っていないサブスクを、見つけて、やめるまで</title>
-<meta name="description" content="カード明細やメールから定期課金（サブスク）を自動で検出し、解約ページへの案内まで行うサービス。月額500円（税込・予定）。クローズドベータ事前登録受付中。">
+<title>サブスク棚卸し | ワンタップ連携で検出、半自動で解約まで</title>
+<meta name="description" content="家計簿サービスとワンタップ連携するだけで、使っていないサブスクを自動検出。金額を見せて、解約まで半自動で案内します。月額500円（税込・予定）。クローズドベータ事前登録受付中。">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 <header class="site">
   <a class="logo" href="index.html">サブスク<span>棚卸し</span></a>
   <nav>
-    <a href="#features">特徴</a>
     <a href="#how">使い方</a>
+    <a href="#compare">違い</a>
     <a href="#pricing">料金</a>
     <a href="#faq">FAQ</a>
   </nav>
 </header>
 <main>
   <div class="hero">
-    <h1>使っていないサブスクに、<br>払い続けていませんか。</h1>
-    <p>カード明細やメールから、定期課金（サブスク）を自動で検出して一覧化。「いつから払っているか」「最近使ったか」を見える化し、解約ページへの案内まで行います。気づかないうちに続く無駄な支払いを、止めるところまで手伝います。</p>
-    <a class="cta" href="#register">クローズドベータに事前登録する</a>
-    <p class="note">ベータ期間中は無料でご利用いただけます</p>
-    <p><a href="./app/">無料スキャンを試す</a>（カード明細CSVをブラウザ内で解析します。明細データは外部に送信されません）</p>
+    <p class="badge">クローズドベータ事前登録 受付中</p>
+    <h1>サブスクの無駄、<br><em>ワンタップ連携</em>で丸見え。</h1>
+    <p class="lead">家計簿サービスと連携するだけ。使っていないサブスクを自動で見つけて、いくら払っているか見せ、面倒な解約まで半自動で案内します。</p>
+    <div class="hero-cta">
+      <a class="cta big" href="./app/">無料スキャンを試す</a>
+      <a class="cta ghost" href="#register">事前登録する</a>
+    </div>
+    <p class="note light">ベータ期間中は無料 ／ 明細データはブラウザ内で処理され外部送信されません</p>
+    <div class="mock" aria-label="検出結果の表示例">
+      <div class="mock-head">検出結果（表示例・サンプルデータ）</div>
+      <div class="mock-stats">
+        <div><span class="k">今月のサブスク合計</span><span class="v hot">¥4,190</span></div>
+        <div><span class="k">年換算</span><span class="v">¥50,280</span></div>
+        <div><span class="k">検出件数</span><span class="v">5件</span></div>
+      </div>
+      <ul class="mock-list">
+        <li><span>NETFLIX</span><b>¥1,190/月</b></li>
+        <li><span>SPOTIFY</span><b>¥980/月</b></li>
+        <li><span>AMAZON DOWNLOADS</span><b>¥980/月</b></li>
+        <li><span>PONTAパス</span><b>¥548/月</b></li>
+      </ul>
+      <p class="mock-foot">各サービスには「解約アシスト」が付き、あなたはログインと最終確認だけ。</p>
+    </div>
   </div>
+
+  <section id="how">
+    <h2>使い方は、ほぼ自動の3ステップ</h2>
+    <div class="steps3">
+      <div class="stepcard">
+        <div class="num">1</div>
+        <h3>ワンタップで連携 <span class="tag auto">自動</span></h3>
+        <p>家計簿サービスと連携するだけ。明細は自動で届きます。連携がなくても、明細の貼り付けやファイルで取り込めます（CSVへの変換は不要）。</p>
+      </div>
+      <div class="stepcard">
+        <div class="num">2</div>
+        <h3>検出と金額表示 <span class="tag auto">自動</span></h3>
+        <p>定期課金を自動で検出。月額合計・年換算・累計支払額と「解約すると今後12ヶ月でいくら減るか」まで表示します。</p>
+      </div>
+      <div class="stepcard">
+        <div class="num">3</div>
+        <h3>半自動で解約 <span class="tag user">本人は最後だけ</span></h3>
+        <p>解約ページへの移動と入力補助は自動。あなたはログイン認証と、最後の確認ボタンを押すだけです。</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="impact">
+    <div class="impact">
+      <p class="impact-k">たとえば月¥4,190の無駄を放置すると</p>
+      <p class="impact-v">1年で ¥50,280 ／ 10年で ¥502,800</p>
+      <p class="note light">※ サンプルデータでの表示例です。実際の金額は検出結果によります。「スマホ代とサブスクで月25,000円を無意識に払い、3年で約90万円」という実体験もSNSで報告されています。</p>
+    </div>
+  </section>
 
   <section id="problem">
     <h2>よくある「サブスクの無駄」</h2>
     <div class="cards">
       <div class="card">
         <h3>無意識の固定費</h3>
-        <p>SNSでは「スマホ代とサブスクで月25,000円を無意識に払い続け、3年で約90万円になった」という実体験も報告されています。サブスク7件で月6,800円、というケースも珍しくありません。</p>
+        <p>サブスク7件で月6,800円、というケースも珍しくありません。1件ずつは小さくても、合計すると大きな固定費になります。</p>
       </div>
       <div class="card">
         <h3>解約忘れ</h3>
@@ -44,73 +91,82 @@
     </div>
   </section>
 
+  <section id="compare">
+    <h2>家計簿アプリとの違い</h2>
+    <table class="compare">
+      <tr><th></th><th>家計簿アプリ</th><th class="hl">サブスク棚卸し</th></tr>
+      <tr><td>明細の取り込み</td><td>連携・手入力</td><td class="hl"><strong>ワンタップ連携</strong>（貼り付け・ファイルも可）</td></tr>
+      <tr><td>定期課金の検出</td><td>△（自分で探す）</td><td class="hl"><strong>自動で検出</strong></td></tr>
+      <tr><td>金額の見える化</td><td>○</td><td class="hl">○（累計・削減見込みまで）</td></tr>
+      <tr><td>解約ページへの案内</td><td>×</td><td class="hl"><strong>○</strong></td></tr>
+      <tr><td>半自動解約（移動・入力補助）</td><td>×</td><td class="hl"><strong>○</strong>（本人はログインと最終確認だけ）</td></tr>
+      <tr><td>解約後の再請求チェック</td><td>×</td><td class="hl"><strong>○</strong>（有料版）</td></tr>
+    </table>
+    <p class="note">「見える化」で終わらせず、やめるところまで手伝うのがサブスク棚卸しです。</p>
+  </section>
+
   <section id="features">
     <h2>特徴</h2>
     <div class="cards">
       <div class="card">
         <h3>定期課金を自動で検出</h3>
-        <p>明細は、家計簿サービスとの連携・画面からの貼り付け・ファイルで取り込み（CSVへの変換は不要）。毎月・毎年の引き落としを自動で拾い上げ、「これは何の支払いか」も推定して表示します。</p>
+        <p>連携・貼り付け・ファイルで取り込んだ明細から、毎月・毎年の引き落としを自動で拾い上げ、「これは何の支払いか」も推定して表示します。</p>
       </div>
       <div class="card">
-        <h3>使っていない度を見える化</h3>
-        <p>契約開始日、累計の支払額、請求の周期を一覧化。長く使っていない可能性が高いものから順に並ぶので、見直しの優先順位がすぐ分かります。</p>
+        <h3>金額で気づける</h3>
+        <p>今月の合計、年換算、推定累計、このまま続けると今後12ヶ月でいくらか。数字で見るから、無駄に気づいて行動できます。</p>
       </div>
       <div class="card">
-        <h3>解約ページまで案内</h3>
-        <p>やめたいサブスクには、解約ページへのリンクと手順を表示。解約ページへの移動と入力補助まで自動化し、あなたはログイン認証と最終確認だけを行う半自動方式です。家計簿アプリの「見える化」で終わらず、やめるところまで手伝います。</p>
+        <h3>解約まで半自動</h3>
+        <p>解約ページへの移動と入力補助まで自動化。引き止め画面が出たら止まって案内に切り替える安全設計で、最終確認は必ずご本人が行います。</p>
       </div>
       <div class="card">
-        <h3>トライアル終了と値上げを通知</h3>
-        <p>無料トライアルの有料移行日が近づいたら、事前に通知します。定期課金の新規発生や値上げも検出して知らせるので、「気づいたら増えていた」を防げます。</p>
+        <h3>解約後も見張る</h3>
+        <p>解約したはずの請求が再発したら検出してお知らせ。無料トライアルの有料移行日や値上げも事前に通知します（有料版）。</p>
       </div>
     </div>
-  </section>
-
-  <section id="how">
-    <h2>使い方</h2>
-    <ol>
-      <li>明細を取り込む（連携・貼り付け・ファイル。変換作業は不要）</li>
-      <li>定期課金が自動で一覧化され、月額・年額の合計と累計支払額が見える</li>
-      <li>使っていないものを選び、解約ページへの案内に従って手続き</li>
-      <li>以降は月1回のレポートと、トライアル終了・値上げの通知が届く</li>
-    </ol>
   </section>
 
   <section id="pricing">
     <h2>料金（正式公開時の予定）</h2>
     <div class="cards">
-      <div class="card">
+      <div class="card price-card">
         <h3>月額プラン</h3>
         <p class="price">¥500<span>/月（税込）</span></p>
-        <p>定期課金の自動検出、月次レポート、トライアル終了・値上げ通知、解約ページへの案内。</p>
+        <p>ワンタップ連携、定期課金の自動検出、月次レポート、トライアル終了・値上げ通知、半自動の解約アシスト、解約後の再請求チェック。</p>
       </div>
-      <div class="card">
+      <div class="card price-card">
         <h3>年払いプラン</h3>
         <p class="price">¥5,000<span>/年（税込）</span></p>
         <p>月額プランの全機能。2ヶ月分お得な年払いです。</p>
       </div>
     </div>
-    <p class="note">料金は予定です。クローズドベータ期間中は無料でご利用いただけます。</p>
+    <p class="note">料金は予定です。クローズドベータ期間中は無料でご利用いただけます。検出された無駄がなければ、無理な課金はおすすめしません。</p>
   </section>
 
   <section id="faq">
     <h2>FAQ</h2>
     <dl>
       <dt>解約を代行してくれるのですか？</dt>
-      <dd>いいえ。解約の確定操作は、ご本人にしかできないため代行しません。解約ページへのリンクと手順の案内までを行います。</dd>
-      <dt>銀行口座やカード情報は預ける必要がありますか？</dt>
-      <dd>口座・カードへのログイン情報は不要です。明細CSVのアップロード、またはメールの転送だけで利用できます。決済情報はStripeが処理し、当サービスでは保持しません。</dd>
-      <dt>取り込んだ明細やメールはどう扱われますか？</dt>
-      <dd>定期課金の検出のためだけに使います。本文データの保持は最長90日です。詳しくはプライバシーポリシーをご覧ください。</dd>
+      <dd>いいえ。解約の確定操作は契約者ご本人にしかできないため代行しません。その代わり、解約ページへの移動と入力補助までを自動化し、ご本人はログイン認証と最終確認だけを行う半自動方式です。</dd>
+      <dt>連携で認証情報を預ける必要がありますか？</dt>
+      <dd>いいえ。当サービスがログイン情報（ID・パスワード）を預かることはありません。連携は読み取り専用の仕組みを使い、認証は各サービスの画面でご本人が行います。</dd>
+      <dt>取り込んだ明細はどう扱われますか？</dt>
+      <dd>定期課金の検出のためだけに使います。無料スキャンでは明細はブラウザ内でのみ処理され、外部に送信されません。本文データの保持は最長90日です。詳しくはプライバシーポリシーをご覧ください。</dd>
       <dt>どんなサブスクが検出できますか？</dt>
-      <dd>クレジットカード明細に載る定期課金と、契約・請求メールから判別できるものが対象です。キャリア決済など明細に出ないものは検出できない場合があります。</dd>
+      <dd>クレジットカード明細に載る定期課金が対象です。キャリア決済など明細に出ないものは検出できない場合があります。</dd>
     </dl>
   </section>
 
   <section id="register">
-    <h2>クローズドベータ事前登録</h2>
-    <p>正式公開のご案内を、事前登録いただいた方から順にお送りします。「サブスクの管理で困っていること」もフォームで募集しています。サービス改善に使わせてください。</p>
-    <a class="cta" href="https://docs.google.com/forms/d/e/1FAIpQLSex2LfpXfWyFZOU9Weng0-jPOUp_PP5gYDBgmMYoC1fREkZkw/viewform" target="_blank" rel="noopener">事前登録フォームを開く</a>
+    <div class="cta-band">
+      <h2>まず、無料スキャンで確かめてください</h2>
+      <p>連携なしでも、貼り付けやサンプルで今すぐ試せます。無駄が見つかったら、事前登録で有料版の案内をお受け取りください。</p>
+      <div class="hero-cta">
+        <a class="cta big" href="./app/">無料スキャンを試す</a>
+        <a class="cta ghost dark" href="https://docs.google.com/forms/d/e/1FAIpQLSex2LfpXfWyFZOU9Weng0-jPOUp_PP5gYDBgmMYoC1fREkZkw/viewform" target="_blank" rel="noopener">事前登録フォームを開く</a>
+      </div>
+    </div>
   </section>
 </main>
 <footer>

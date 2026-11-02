@@ -4,60 +4,113 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>無料スキャン | サブスク棚卸し</title>
-<meta name="description" content="カード明細CSVをブラウザ内で解析し、定期課金（サブスク）の合計金額を表示します。明細データは外部に送信されません。">
+<meta name="description" content="家計簿サービスとワンタップ連携、または明細の貼り付けで、定期課金（サブスク）を自動検出して金額を表示し、解約まで半自動で案内します。明細データは外部に送信されません。">
 <style>
-body{font-family:system-ui,sans-serif;margin:0;background:#f6f7f9;color:#1a1a1a}
-main{max-width:880px;margin:0 auto;padding:24px 16px 56px}
-h1{font-size:26px}
-.drop{border:2px dashed #b9bec7;border-radius:12px;background:#fff;padding:28px;text-align:center}
-.drop input{margin-top:10px}
-.note{color:#666;font-size:13px}
+*{box-sizing:border-box}
+body{font-family:system-ui,"Hiragino Kaku Gothic ProN","Noto Sans JP",sans-serif;margin:0;background:#f4f6fb;color:#1a1d21;line-height:1.7}
+main{max-width:920px;margin:0 auto;padding:0 16px 64px}
+a{color:#2563eb}
+.band{background:linear-gradient(120deg,#1e3a8a,#2563eb 55%,#0ea5e9);color:#fff;margin:0 -16px;padding:34px 24px 30px;border-radius:0 0 20px 20px}
+.band a{color:#bfdbfe;font-size:13px}
+.band h1{font-size:30px;margin:6px 0 8px}
+.band p{margin:0;color:#dbeafe;max-width:640px}
+.steps{display:flex;gap:8px;flex-wrap:wrap;margin-top:18px}
+.stepchip{background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.35);border-radius:999px;padding:6px 14px;font-size:13px;font-weight:700}
+.stepchip b{color:#fde68a}
+.panel{background:#fff;border:1px solid #e2e7ee;border-radius:16px;padding:22px;margin-top:20px;box-shadow:0 6px 24px rgba(30,58,138,.06)}
+.panel h2{font-size:19px;margin:0 0 6px}
+.connect{border:2px solid #2563eb;background:linear-gradient(180deg,#eff6ff,#fff)}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}
+.chip{border:1px solid #c7d6f5;background:#fff;border-radius:999px;padding:6px 14px;font-size:13px;font-weight:700;color:#1e40af}
+.bigbtn{display:block;width:100%;background:linear-gradient(120deg,#2563eb,#0ea5e9);color:#fff;border:0;border-radius:12px;padding:16px;font-size:18px;font-weight:800;cursor:pointer;margin-top:8px}
+.bigbtn:disabled{opacity:.6;cursor:wait}
+.status{margin-top:14px;background:#0f172a;color:#e2e8f0;border-radius:10px;padding:12px 16px;font-size:14px;display:none}
+.status.on{display:block}
+.status .done{color:#4ade80}
+.note{color:#66707c;font-size:13px}
+.alt{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px}
+.drop{border:2px dashed #b9bec7;border-radius:12px;background:#fafbff;padding:22px;text-align:center}
+.drop.over{border-color:#2563eb;background:#eff6ff}
+.drop input{margin-top:8px}
+textarea{width:100%;min-height:104px;border:1px solid #cfd4dc;border-radius:8px;padding:10px;font-family:inherit;font-size:13px}
+button.go{background:#111827;color:#fff;border:0;padding:11px 18px;border-radius:8px;cursor:pointer;margin-top:10px;font-weight:700}
 .summary{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin:16px 0}
-.box{background:#fff;border:1px solid #e2e4e8;border-radius:12px;padding:16px}
-.box .v{font-size:24px;font-weight:700}
-.box .k{color:#666;font-size:13px}
-.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px}
-.card{background:#fff;border:1px solid #e2e4e8;border-radius:12px;padding:16px}
-.card .amt{font-size:22px;font-weight:700}
-.card .amt span{font-size:13px;color:#666;font-weight:400}
-.route{color:#555;font-size:13px}
-.err{background:#fdecec;border:1px solid #f3b6b6;border-radius:8px;padding:12px}
-.cta{display:inline-block;background:#111;color:#fff;padding:12px 20px;border-radius:8px;text-decoration:none;margin-top:12px}
-.drop.over{border-color:#111;background:#eef4ff}
-textarea{width:100%;box-sizing:border-box;min-height:110px;border:1px solid #cfd4dc;border-radius:8px;padding:10px;font-family:inherit;font-size:13px}
-.paste{margin-top:16px;background:#fff;border:1px solid #e2e4e8;border-radius:12px;padding:16px}
-button.go{background:#111;color:#fff;border:0;padding:10px 18px;border-radius:8px;cursor:pointer;margin-top:10px}
-.flow{background:#fff;border:1px solid #e2e4e8;border-radius:12px;padding:16px;margin:16px 0}
-.flow li{margin:6px 0}
+.box{background:#fff;border:1px solid #e2e7ee;border-radius:12px;padding:16px}
+.box .v{font-size:25px;font-weight:800}
+.box .k{color:#66707c;font-size:13px}
+.box.hot{border-color:#f59e0b;background:#fffbeb}
+.box.hot .v{color:#b45309}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:12px}
+.card{background:#fff;border:1px solid #e2e7ee;border-radius:14px;padding:16px;border-top:4px solid #2563eb}
+.card h3{margin:0 0 6px;font-size:17px;display:flex;align-items:center;gap:10px}
+.avatar{width:34px;height:34px;border-radius:10px;background:linear-gradient(135deg,#2563eb,#0ea5e9);color:#fff;display:inline-flex;align-items:center;justify-content:center;font-weight:800;font-size:16px;flex:none}
+.card .amt{font-size:22px;font-weight:800;margin:4px 0}
+.card .amt span{font-size:13px;color:#66707c;font-weight:400}
+.card p{margin:6px 0;font-size:14px}
+.route{color:#66707c;font-size:13px}
+.flow{background:#fff;border:1px solid #e2e7ee;border-radius:14px;padding:18px;margin:16px 0}
+.flow li{margin:7px 0}
 .assist{border-top:1px dashed #d5d9e0;margin-top:12px;padding-top:10px}
-.assist-h{font-weight:700;margin:4px 0}
+.assist-h{font-weight:800;margin:4px 0}
 .step{margin:4px 0;font-size:14px}
 .tag{display:inline-block;font-size:12px;font-weight:700;border-radius:999px;padding:2px 10px;margin-right:6px;color:#fff}
 .tag.auto{background:#2563eb}
 .tag.user{background:#d97706}
-.assist .cta{padding:9px 16px;font-size:14px}
+.cta{display:inline-block;background:#111827;color:#fff;padding:11px 18px;border-radius:8px;text-decoration:none;margin-top:10px;font-weight:700}
+.err{background:#fdecec;border:1px solid #f3b6b6;border-radius:8px;padding:12px}
+h2.sec{font-size:21px;margin:26px 0 8px}
 </style>
 </head>
 <body>
 <main>
-  <p><a href="../">← サブスク棚卸し トップ</a></p>
-  <h1>無料スキャン</h1>
-  <p>明細を取り込むと、定期課金（サブスク）を検出して金額を表示し、解約まで半自動で案内します。<strong>わざわざCSVに変換する必要はありません。</strong></p>
-  <p class="note">明細データはあなたのブラウザ内でのみ処理され、外部に送信されることはありません。有料版では家計簿サービスとの連携で明細が自動で届きます（事前登録受付中）。</p>
-  <div class="drop" id="drop">
-    <p>明細ファイルをここにドロップ（または選択）</p>
-    <input type="file" id="file" accept=".csv,.tsv,.txt,text/csv,text/plain">
-    <p class="note">CSV / TSV / テキスト形式に対応。まずは試したい方へ: <a href="#" id="sample">サンプル明細で試す</a></p>
+  <div class="band">
+    <a href="../">← サブスク棚卸し トップ</a>
+    <h1>無料スキャン</h1>
+    <p>連携するか、貼り付けるだけ。定期課金を自動で検出して金額を見せ、面倒な解約まで半自動で案内します。<strong>CSVへの変換は不要です。</strong></p>
+    <div class="steps">
+      <span class="stepchip"><b>STEP 1</b> 取り込む</span>
+      <span class="stepchip"><b>STEP 2</b> 自動で検出</span>
+      <span class="stepchip"><b>STEP 3</b> 半自動で解約</span>
+    </div>
   </div>
-  <div class="paste">
-    <p><strong>貼り付けるだけでもOK</strong> ― 家計簿サービスやカード明細の画面をコピーして貼り付けてください（日付・利用先・金額が含まれる形式）。</p>
-    <textarea id="paste" placeholder="例:&#10;2026/01/05&#9;NETFLIX&#9;1,190&#10;2026/01/15&#9;SPOTIFY&#9;1,080"></textarea>
-    <button class="go" id="pasteBtn">貼り付けた明細を解析する</button>
+
+  <section class="panel connect">
+    <h2>家計簿サービスと連携する</h2>
+    <p>対応サービスを選んでボタンを押すだけ。明細が届き、定期課金の検出まで自動で進みます。</p>
+    <div class="chips">
+      <span class="chip">マネーフォワード ME</span>
+      <span class="chip">楽天カード・楽天銀行</span>
+      <span class="chip">銀行・カード各社</span>
+    </div>
+    <button class="bigbtn" id="connectBtn">ワンタップで連携して取り込む</button>
+    <div class="status" id="connectStatus"></div>
+    <p class="note">※ デモ連携です。サンプルデータで一連の流れを確認できます。本番のワンタップ連携は有料版で提供予定（事前登録受付中）。連携は読み取り専用で、認証情報を預かることはありません。</p>
+  </section>
+
+  <div class="alt">
+    <section class="panel">
+      <h2>貼り付けるだけでもOK</h2>
+      <p>家計簿サービスやカード明細の画面をコピーして貼り付けてください（日付・利用先・金額が含まれる形式）。</p>
+      <textarea id="paste" placeholder="例:&#10;2026/01/05&#9;NETFLIX&#9;1,190&#10;2026/01/15&#9;SPOTIFY&#9;1,080"></textarea>
+      <button class="go" id="pasteBtn">貼り付けた明細を解析する</button>
+    </section>
+    <section class="panel">
+      <h2>ファイルから取り込む</h2>
+      <div class="drop" id="drop">
+        <p>明細ファイルをここにドロップ（または選択）</p>
+        <input type="file" id="file" accept=".csv,.tsv,.txt,text/csv,text/plain">
+        <p class="note">CSV / TSV / テキスト形式に対応します。</p>
+      </div>
+      <p class="note">まずは試したい方へ: <a href="#" id="sample">サンプル明細で試す</a></p>
+    </section>
   </div>
+
+  <p class="note">明細データはあなたのブラウザ内でのみ処理され、外部に送信されることはありません。</p>
+
   <div id="result"></div>
   <section id="after" hidden>
-    <h2>継続的な管理について</h2>
-    <p>このスキャンは1回分の棚卸しです。有料版（月¥500・予定）では、家計簿サービスとの連携で明細が自動で届き、新しいサブスクの発生、値上げ、無料トライアルの有料移行、解約したはずの請求の再発を継続的に見張ります。解約は、ページへの移動と入力補助まで自動化し、ログイン認証と最終確認だけをご本人が行う半自動方式です。事前登録を受け付けています。</p>
+    <h2 class="sec">継続的な管理について</h2>
+    <p>このスキャンは1回分の棚卸しです。有料版（月¥500・予定）では、家計簿サービスとの<strong>ワンタップ連携</strong>で明細が自動で届き、新しいサブスクの発生、値上げ、無料トライアルの有料移行、解約したはずの請求の再発を継続的に見張ります。解約は、ページへの移動と入力補助まで自動化し、ログイン認証と最終確認だけをご本人が行う半自動方式です。</p>
     <a class="cta" href="https://docs.google.com/forms/d/e/1FAIpQLSex2LfpXfWyFZOU9Weng0-jPOUp_PP5gYDBgmMYoC1fREkZkw/viewform" target="_blank" rel="noopener">事前登録する</a>
   </section>
 </main>

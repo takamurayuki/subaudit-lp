@@ -43,7 +43,7 @@ function render(text) {
   const s = summarize(detectRecurring(txns));
   const cards = s.subs.map((r) => {
     const g = findGuide(r.displayName);
-    return `<div class="card"><h3>${esc(r.displayName)}</h3>
+    return `<div class="card"><h3><span class="avatar">${esc(r.displayName.slice(0, 1))}</span>${esc(r.displayName)}</h3>
 <p class="amt">${yen(r.monthlyEquivalent)}<span>/月換算（${r.cycleLabel} ${yen(r.typicalAmount)}）</span></p>
 <p>累計 ${yen(r.cumulative)}（${r.count}回） / 初回 ${r.firstDate} / 次回予定 ${r.nextExpectedDate}</p>
 <p>解約すると今後12ヶ月で <strong>${yen(r.annualEquivalent)}</strong> の削減見込み</p>
@@ -61,7 +61,7 @@ ${g.url ? `<p><a class="cta" href="${esc(g.url)}" target="_blank" rel="noopener"
 <h2>スキャン結果</h2>
 <p>対象明細 ${txns.length}件 / 検出された定期課金 ${s.subs.length}件</p>
 <div class="summary">
-<div class="box"><div class="k">今月のサブスク合計（月額換算）</div><div class="v">${yen(s.monthlyTotal)}</div></div>
+<div class="box hot"><div class="k">今月のサブスク合計（月額換算）</div><div class="v">${yen(s.monthlyTotal)}</div></div>
 <div class="box"><div class="k">年換算</div><div class="v">${yen(s.annualTotal)}</div></div>
 <div class="box"><div class="k">推定累計支払額（明細の範囲内）</div><div class="v">${yen(s.cumulativeTotal)}</div></div>
 <div class="box"><div class="k">このまま続けると今後12ヶ月</div><div class="v">${yen(s.annualTotal)}</div></div>
@@ -113,4 +113,24 @@ document.getElementById("pasteBtn").addEventListener("click", () => {
 document.getElementById("sample").addEventListener("click", (ev) => {
   ev.preventDefault();
   render(SAMPLE);
+});
+
+// ワンタップ連携（デモ）: 連携→取得→検出の進行を見せてから、サンプル明細で結果を表示する。
+const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+document.getElementById("connectBtn").addEventListener("click", async () => {
+  const btn = document.getElementById("connectBtn");
+  const status = document.getElementById("connectStatus");
+  btn.disabled = true;
+  status.classList.add("on");
+  const steps = ["連携しています…", "明細を取得しています…", "定期課金を検出しています…"];
+  status.innerHTML = "";
+  for (const s of steps) {
+    status.innerHTML += `<div>▶ ${s}</div>`;
+    await sleep(850);
+  }
+  status.innerHTML += `<div class="done">✓ 連携が完了しました（デモ：サンプルデータで検出結果を表示します）</div>`;
+  render(SAMPLE);
+  await sleep(150);
+  document.getElementById("result").scrollIntoView({ behavior: "smooth", block: "start" });
+  btn.disabled = false;
 });
