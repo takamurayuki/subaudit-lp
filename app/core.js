@@ -151,19 +151,32 @@ export function detectRecurring(txns) {
 }
 
 const GUIDES = [
-  [/NETFLIX|ネットフリックス/, { service: "Netflix", route: "Web直契約", url: "https://www.netflix.com/cancelplan" }],
-  [/SPOTIFY/, { service: "Spotify", route: "Web直契約", url: "https://www.spotify.com/account/subscription/" }],
-  [/APPLE|APP STORE|ITUNES/, { service: "Apple（App Store課金）", route: "App Store", url: "https://apps.apple.com/account/subscriptions" }],
-  [/GOOGLE PLAY/, { service: "Google Play課金", route: "Google Play", url: "https://play.google.com/store/account/subscriptions" }],
-  [/AMAZON|アマゾン/, { service: "Amazon（Prime / Kindle Unlimited等）", route: "Amazon", url: "https://www.amazon.co.jp/membership/" }],
-  [/CLAUDE|ANTHROPIC/, { service: "Claude（Anthropic）", route: "Web直契約", url: "https://claude.ai/settings/billing" }],
-  [/PONTA|ポンタ|AU/, { service: "Pontaパス等（au）", route: "キャリア決済", url: "https://pass.auone.jp/" }],
+  [/NETFLIX|ネットフリックス/, { service: "Netflix", route: "Web直契約", url: "https://www.netflix.com/cancelplan", domain: "netflix.com", color: "#e50914" }],
+  [/SPOTIFY/, { service: "Spotify", route: "Web直契約", url: "https://www.spotify.com/account/subscription/", domain: "spotify.com", color: "#1db954" }],
+  [/APPLE|APP STORE|ITUNES|ICLOUD/, { service: "Apple（App Store課金）", route: "App Store", url: "https://apps.apple.com/account/subscriptions", domain: "apple.com", color: "#555555" }],
+  [/GOOGLE PLAY/, { service: "Google Play課金", route: "Google Play", url: "https://play.google.com/store/account/subscriptions", domain: "play.google.com", color: "#01875f" }],
+  [/YOUTUBE/, { service: "YouTube Premium", route: "Web直契約", url: "https://www.youtube.com/paid_memberships", domain: "youtube.com", color: "#ff0000" }],
+  [/AMAZON|アマゾン/, { service: "Amazon（Prime / Kindle Unlimited等）", route: "Amazon", url: "https://www.amazon.co.jp/membership/", domain: "amazon.co.jp", color: "#ff9900" }],
+  [/CLAUDE|ANTHROPIC/, { service: "Claude（Anthropic）", route: "Web直契約", url: "https://claude.ai/settings/billing", domain: "claude.ai", color: "#d97757" }],
+  [/CHATGPT|OPENAI/, { service: "ChatGPT（OpenAI）", route: "Web直契約", url: "https://chatgpt.com/#settings", domain: "openai.com", color: "#10a37f" }],
+  [/PONTA|ポンタ|AU/, { service: "Pontaパス等（au）", route: "キャリア決済", url: "https://pass.auone.jp/", domain: "auone.jp", color: "#eb5505" }],
+  [/GITHUB/, { service: "GitHub", route: "Web直契約", url: "https://github.com/settings/billing", domain: "github.com", color: "#24292f" }],
+  [/DMM/, { service: "DMM", route: "Web直契約", url: "https://accounts.dmm.com/", domain: "dmm.co.jp", color: "#e60012" }],
+  [/J:COM|JCOM|ジェイコム/, { service: "J:COM", route: "キャリア/回線", url: null, domain: "jcom.co.jp", color: "#004b8d" }],
+  [/HULU/, { service: "Hulu", route: "Web直契約", url: "https://www.hulu.jp/account", domain: "hulu.jp", color: "#1ce783" }],
+  [/U-NEXT|UNEXT|ユーネクスト/, { service: "U-NEXT", route: "Web直契約", url: "https://video.unext.jp/", domain: "unext.jp", color: "#e60012" }],
+  [/DISNEY|ディズニー/, { service: "Disney+", route: "Web直契約", url: "https://www.disneyplus.com/account", domain: "disneyplus.com", color: "#113ccf" }],
+  [/ADOBE/, { service: "Adobe", route: "Web直契約", url: "https://account.adobe.com/plans", domain: "adobe.com", color: "#eb1000" }],
+  [/MICROSOFT|XBOX/, { service: "Microsoft / Xbox", route: "Web直契約", url: "https://account.microsoft.com/services", domain: "microsoft.com", color: "#00a4ef" }],
+  [/NOTION/, { service: "Notion", route: "Web直契約", url: "https://www.notion.so/", domain: "notion.so", color: "#000000" }],
+  [/NINTENDO|任天堂/, { service: "Nintendo Switch Online", route: "Web直契約", url: "https://accounts.nintendo.com/", domain: "nintendo.co.jp", color: "#e60012" }],
+  [/X\.COM|TWITTER/, { service: "X Premium", route: "Web直契約", url: "https://x.com/settings", domain: "x.com", color: "#000000" }],
 ];
 
 export function findGuide(displayName) {
   const upper = String(displayName).toUpperCase();
   for (const [re, g] of GUIDES) if (re.test(upper)) return g;
-  return { service: displayName, route: "不明", url: null };
+  return { service: displayName, route: "不明", url: null, domain: null, color: "#2563eb" };
 }
 
 export function summarize(recurring) {
