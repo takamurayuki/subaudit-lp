@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>サブポイ | ワンタップ連携で検出、半自動で解約まで</title>
-<meta name="description" content="家計簿サービスとワンタップ連携するだけで、使っていないサブスクを自動検出。金額を見せて、解約まで半自動で案内します。月額500円（税込・予定）。クローズドベータ事前登録受付中。">
+<meta name="description" content="家計簿サービスとワンタップ連携するだけで、使っていないサブスクを自動検出。金額を見せて、解約は認証とボタン以外すべて自動。月額500円（税込）。">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -19,12 +19,12 @@
 </header>
 <main>
   <div class="hero">
-    <p class="badge">クローズドベータ事前登録 受付中</p>
+    <p class="badge">無料スキャン公開中 ・ 見守りプラン申込受付中</p>
     <h1>サブスクの無駄、<br><em>ワンタップ連携</em>で丸見え。</h1>
     <p class="lead">家計簿サービスと連携するだけ。使っていないサブスクを自動で見つけて、いくら払っているか見せ、面倒な解約まで半自動で案内します。</p>
     <div class="hero-cta">
       <a class="cta big" href="./app/">無料スキャンを試す</a>
-      <a class="cta ghost" href="#register">事前登録する</a>
+      <a class="cta ghost" href="#pricing">見守りプランを申し込む</a>
     </div>
     <p class="note light">ベータ期間中は無料 ／ 明細データはブラウザ内で処理され外部送信されません</p>
     <div class="mock" aria-label="検出結果の表示例">
@@ -128,27 +128,29 @@
   </section>
 
   <section id="pricing">
-    <h2>料金（正式公開時の予定）</h2>
+    <h2>料金</h2>
     <div class="cards">
       <div class="card price-card">
         <h3>月額プラン</h3>
         <p class="price">¥500<span>/月（税込）</span></p>
-        <p>ワンタップ連携、定期課金の自動検出、月次レポート、トライアル終了・値上げ通知、半自動の解約アシスト、解約後の再請求チェック。</p>
+        <p>ワンタップ連携、定期課金の自動検出と継続監視（新しいサブスク・値上げ・解約漏れ・年額更新をお知らせ）、月次レポート、解約で浮いた金額の累計表示。解約は、認証と解約ボタン以外すべて自動です。</p>
+        <p><a class="cta" href="https://buy.stripe.com/7sYaEW2R42iVa1I2SAgQE02" target="_blank" rel="noopener">月額プランを申し込む</a></p>
       </div>
       <div class="card price-card">
         <h3>年払いプラン</h3>
         <p class="price">¥5,000<span>/年（税込）</span></p>
         <p>月額プランの全機能。2ヶ月分お得な年払いです。</p>
+        <p><a class="cta" href="https://buy.stripe.com/eVq3cufDQbTv1vc8cUgQE03" target="_blank" rel="noopener">年払いプランを申し込む</a></p>
       </div>
     </div>
-    <p class="note">料金は予定です。クローズドベータ期間中は無料でご利用いただけます。検出された無駄がなければ、無理な課金はおすすめしません。</p>
+    <p class="note">まずは無料スキャンで確かめてください。検出された無駄がなければ、無理な課金はおすすめしません。</p>
   </section>
 
   <section id="faq">
     <h2>FAQ</h2>
     <dl>
       <dt>解約を代行してくれるのですか？</dt>
-      <dd>いいえ。解約の確定操作は契約者ご本人にしかできないため代行しません。その代わり、解約ページへの移動と入力補助までを自動化し、ご本人はログイン認証と最終確認だけを行う半自動方式です。</dd>
+      <dd>第三者が代理で解約する代行サービスではありません。ご本人のブラウザセッションの中で、ご本人がログイン認証と「解約する」の意思決定（ボタン）だけを行い、ページ移動・入力・確認画面の記録などそれ以外の操作は自動で進む方式です。最終確定は、内容をご本人が承認した場合にのみ、その場で自動実行されます。</dd>
       <dt>連携で認証情報を預ける必要がありますか？</dt>
       <dd>いいえ。当サービスがログイン情報（ID・パスワード）を預かることはありません。連携は読み取り専用の仕組みを使い、認証は各サービスの画面でご本人が行います。</dd>
       <dt>取り込んだ明細はどう扱われますか？</dt>
@@ -161,10 +163,10 @@
   <section id="register">
     <div class="cta-band">
       <h2>まず、無料スキャンで確かめてください</h2>
-      <p>連携なしでも、貼り付けやサンプルで今すぐ試せます。無駄が見つかったら、事前登録で有料版の案内をお受け取りください。</p>
+      <p>連携なしでも、貼り付けやサンプルで今すぐ試せます。無駄が見つかったら、見守りプランで継続監視と解約アシストを有効化できます。</p>
       <div class="hero-cta">
         <a class="cta big" href="./app/">無料スキャンを試す</a>
-        <a class="cta ghost dark" href="https://docs.google.com/forms/d/e/1FAIpQLSex2LfpXfWyFZOU9Weng0-jPOUp_PP5gYDBgmMYoC1fREkZkw/viewform" target="_blank" rel="noopener">事前登録フォームを開く</a>
+        <a class="cta ghost dark" href="#pricing">見守りプランを見る</a>
       </div>
     </div>
   </section>
