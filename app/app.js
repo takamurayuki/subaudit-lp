@@ -1,15 +1,17 @@
 import { parseStatementText, detectRecurring, summarize, findGuide } from "./core.js";
+import { ICON_DATA } from "./icons.js";
 
 const yen = (n) => `¥${n.toLocaleString("ja-JP")}`;
 const esc = (s) => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 
-// サービスのアイコン（公式ファビコン）。小さいサイズを指定して高速化し、読み込み中は
-// ブランド色の頭文字タイルを即時表示、画像が届いたらフェードインする。
-// 取得できない場合は頭文字タイルのままになる。
+// サービスのアイコン（公式ファビコンを data URI で同梱し自前配信）。外部サーバーへ
+// 検出結果の手がかりを送らない。読み込み中はブランド色の頭文字タイルを即時表示し、
+// 画像が届いたらフェードインする。
 const icon = (g, name, size) => {
   const initial = esc(String(name).slice(0, 1));
   const px = size === "lg" ? 48 : 24;
-  const img = g.domain ? `<img class="svc-img" src="https://www.google.com/s2/favicons?domain=${esc(g.domain)}&sz=64" alt="" width="${px}" height="${px}" loading="eager" decoding="async" onload="this.style.opacity=1" onerror="this.remove()">` : "";
+  const data = g.domain ? ICON_DATA[g.domain] : null;
+  const img = data ? `<img class="svc-img" src="${data}" alt="" width="${px}" height="${px}" loading="eager" decoding="async" onload="this.style.opacity=1" onerror="this.remove()">` : "";
   return `<span class="svc svc-${size}" style="--c:${esc(g.color || "#2563eb")}"><span class="svc-fallback">${initial}</span>${img}</span>`;
 };
 
