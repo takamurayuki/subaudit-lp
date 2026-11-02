@@ -128,6 +128,11 @@ document.getElementById("sample").addEventListener("click", (ev) => {
   render(SAMPLE);
 });
 
+// ブラウザ拡張からの取り込み（拡張が保留データを CustomEvent で渡してくる）
+window.addEventListener("subpoi:import", (e) => {
+  if (typeof e.detail === "string" && e.detail) render(e.detail);
+});
+
 // ワンタップ連携（デモ）: 連携→取得→検出の進行を見せてから、サンプル明細で結果を表示する。
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 document.getElementById("connectBtn").addEventListener("click", async () => {
