@@ -3,9 +3,78 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>サブポイ | ワンタップ連携で検出、半自動で解約まで</title>
-<meta name="description" content="家計簿サービスとワンタップ連携するだけで、使っていないサブスクを自動検出。金額を見せて、解約は認証とボタン以外すべて自動。月額500円（税込）。">
+<title>サブポイ｜サブスクの無駄を自動検出、解約まで半自動サポート【無料スキャン】</title>
+<meta name="description" content="使っていないサブスク（定期課金）を自動検出して「月いくら・年いくら」を表示。解約忘れや値上げの見張り、解約の半自動サポートまで。明細を貼るだけの無料スキャン（登録不要）から始められます。見守りプラン月額500円（税込）。">
+<link rel="canonical" href="https://subpoi.jp/">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#2563eb">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%232563eb'/%3E%3Ctext x='32' y='43' font-size='30' font-family='sans-serif' font-weight='bold' fill='white' text-anchor='middle'%3E%E3%82%B5%3C/text%3E%3C/svg%3E">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="サブポイ">
+<meta property="og:locale" content="ja_JP">
+<meta property="og:title" content="サブポイ｜サブスクの無駄を自動検出、解約まで半自動サポート">
+<meta property="og:description" content="使っていないサブスクを自動検出して金額を表示。解約忘れ・値上げの見張りと、解約の半自動サポート。無料スキャンから始められます。">
+<meta property="og:url" content="https://subpoi.jp/">
+<meta property="og:image" content="https://subpoi.jp/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="サブポイ｜サブスクの無駄を自動検出、解約まで半自動サポート">
+<meta name="twitter:description" content="使っていないサブスクを自動検出して金額を表示。解約忘れ・値上げの見張りと、解約の半自動サポート。無料スキャンから始められます。">
+<meta name="twitter:image" content="https://subpoi.jp/og-image.png">
 <link rel="stylesheet" href="style.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "name": "サブポイ",
+      "url": "https://subpoi.jp/"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "name": "サブポイ",
+      "url": "https://subpoi.jp/",
+      "applicationCategory": "FinanceApplication",
+      "operatingSystem": "Web",
+      "description": "使っていないサブスク（定期課金）を自動検出し、金額表示、解約忘れ・値上げの見張り、解約の半自動サポートを行うサービス。",
+      "offers": [
+        { "@type": "Offer", "name": "見守りプラン（月額）", "price": "500", "priceCurrency": "JPY" },
+        { "@type": "Offer", "name": "見守りプラン（年払い）", "price": "5000", "priceCurrency": "JPY" }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "解約を代行してくれるのですか？",
+          "acceptedAnswer": { "@type": "Answer", "text": "第三者が代理で解約する代行サービスではありません。ご本人のブラウザセッションの中で、ご本人がログイン認証と「解約する」の意思決定（ボタン）だけを行い、ページ移動・入力・確認画面の記録などそれ以外の操作は自動で進む方式です。最終確定は、内容をご本人が承認した場合にのみ、その場で自動実行されます。" }
+        },
+        {
+          "@type": "Question",
+          "name": "連携で認証情報を預ける必要がありますか？",
+          "acceptedAnswer": { "@type": "Answer", "text": "いいえ。当サービスがログイン情報（ID・パスワード）を預かることはありません。連携は読み取り専用の仕組みを使い、認証は各サービスの画面でご本人が行います。" }
+        },
+        {
+          "@type": "Question",
+          "name": "セキュリティは大丈夫ですか？",
+          "acceptedAnswer": { "@type": "Answer", "text": "「持たない・送らない・残さない」を設計の原則にしています。認証情報は一切預からず、自動化はご本人がログインしたブラウザの中でだけ動きます。解約の最終確定は、ご本人の承認なしには構造上実行できません。決済はStripeに委譲し、カード情報を当サービスが扱うことはありません。" }
+        },
+        {
+          "@type": "Question",
+          "name": "取り込んだ明細はどう扱われますか？",
+          "acceptedAnswer": { "@type": "Answer", "text": "定期課金の検出のためだけに使います。無料スキャンでは明細はブラウザ内でのみ処理され、外部に送信されません。本文データの保持は最長90日です。詳しくはプライバシーポリシーをご覧ください。" }
+        },
+        {
+          "@type": "Question",
+          "name": "どんなサブスクが検出できますか？",
+          "acceptedAnswer": { "@type": "Answer", "text": "クレジットカード明細に載る定期課金が対象です。キャリア決済など明細に出ないものは検出できない場合があります。" }
+        }
+      ]
+    }
+  ]
+}
+</script>
 </head>
 <body>
 <header class="site">
