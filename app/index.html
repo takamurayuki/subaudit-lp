@@ -84,6 +84,14 @@ button.go{background:#111827;color:#fff;border:0;padding:11px 18px;border-radius
 .tag.user{background:#d97706}
 .cta{display:inline-block;background:#111827;color:#fff;padding:11px 18px;border-radius:8px;text-decoration:none;margin-top:10px;font-weight:700}
 .err{background:#fdecec;border:1px solid #f3b6b6;border-radius:8px;padding:12px}
+.ocr-row{display:flex;gap:6px;margin:6px 0;align-items:center}
+.ocr-row input{border:1px solid #cfd4dc;border-radius:8px;padding:9px;font-family:inherit;font-size:14px}
+.ocr-row .ocr-date{flex:0 1 150px}
+.ocr-row .ocr-desc{flex:1 1 auto;min-width:0}
+.ocr-row .ocr-amt{flex:0 1 110px;text-align:right}
+.ocr-row.bad input{border-color:#dc2626;background:#fef2f2}
+.ocr-del{border:1px solid #cfd4dc;background:#fff;border-radius:8px;padding:9px 10px;cursor:pointer;font-size:13px;flex:none}
+button.go.sub{background:#fff;color:#111827;border:1px solid #cfd4dc}
 h2.sec{font-size:21px;margin:26px 0 8px}
 </style>
 </head>
@@ -92,7 +100,7 @@ h2.sec{font-size:21px;margin:26px 0 8px}
   <div class="band">
     <a href="../">← サブポイ トップ</a>
     <h1>無料スキャン</h1>
-    <p>連携するか、貼り付けるだけ。登録は不要です。定期課金を自動で検出して金額を見せ、面倒な解約も認証とボタン以外は全部自動で進めます。<strong>CSVへの変換は不要です。</strong></p>
+    <p>連携するか、貼り付けるだけ。スクリーンショットからも読み込めます。登録は不要です。定期課金を自動で検出して金額を見せ、面倒な解約も認証とボタン以外は全部自動で進めます。<strong>CSVへの変換は不要です。</strong></p>
     <div class="steps">
       <span class="stepchip"><b>STEP 1</b> 連携するだけ</span>
       <span class="stepchip"><b>STEP 2</b> 金額が見える</span>
@@ -129,7 +137,28 @@ h2.sec{font-size:21px;margin:26px 0 8px}
       </div>
       <p class="note">まずは試したい方へ: <a href="#" id="sample">サンプル明細で試す</a></p>
     </section>
+    <section class="panel">
+      <h2>スクリーンショットから取り込む</h2>
+      <p>カード明細や家計簿アプリの利用明細画面のスクリーンショット（画像）を選ぶと、文字を読み取って取り込みます。読み取った内容は、検出の前に必ず確認・修正できます。</p>
+      <div class="drop" id="ocrDrop">
+        <p>明細のスクリーンショットをここにドロップ（または選択）</p>
+        <input type="file" id="ocrFile" accept="image/*" multiple>
+        <p class="note">複数枚まとめて選べます。画像はブラウザ内でのみ処理され、外部に送信されません。</p>
+      </div>
+      <div class="status" id="ocrStatus"></div>
+    </section>
   </div>
+
+  <section class="panel" id="ocrReview" hidden>
+    <h2>読み取り結果の確認</h2>
+    <p class="note">画像から読み取った明細です。<strong>金額・日付などの数字は、読み間違えていることがあります。</strong>元の明細と見比べて、おかしい箇所は直してから「この内容で検出する」を押してください。不要な行は削除できます。</p>
+    <div id="ocrRows"></div>
+    <p><button class="go sub" id="ocrAddRow">＋ 行を追加</button></p>
+    <p class="err" id="ocrErr" hidden></p>
+    <button class="bigbtn" id="ocrConfirm">この内容で検出する</button>
+    <button class="go" id="ocrCancel">やめる</button>
+    <p class="note">文字読み取りには Tesseract.js（オープンソース / Apache License 2.0）を使用し、処理はすべてブラウザ内で行われます。</p>
+  </section>
 
   <p class="note">明細データはあなたのブラウザ内でのみ処理され、外部に送信されることはありません。</p>
 

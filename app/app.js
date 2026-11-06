@@ -1,5 +1,6 @@
 import { parseStatementText, detectRecurring, summarize, findGuide } from "./core.js";
 import { ICON_DATA } from "./icons.js";
+import { setupOcr } from "./ocr.js";
 
 const yen = (n) => `¥${n.toLocaleString("ja-JP")}`;
 const esc = (s) => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
@@ -127,6 +128,9 @@ document.getElementById("sample").addEventListener("click", (ev) => {
   ev.preventDefault();
   render(SAMPLE);
 });
+
+// スクリーンショットOCR取り込み（OCR資産は導線選択時にだけ読み込む）
+setupOcr({ parseStatementText, render });
 
 // ブラウザ拡張からの取り込み（拡張が保留データを CustomEvent で渡してくる）
 window.addEventListener("subpoi:import", (e) => {
