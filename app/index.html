@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>無料スキャン | サブポイ</title>
-<meta name="description" content="家計簿サービスとワンタップ連携、または明細の貼り付けで、定期課金（サブスク）を自動検出して金額を表示し、解約まで半自動で案内します。明細データは外部に送信されません。">
+<meta name="description" content="明細の貼り付け・ファイル・スクリーンショットで、定期課金（サブスク）を自動検出して金額を表示し、解約まで半自動で案内します。明細データは外部に送信されません。">
 <link rel="canonical" href="https://subpoi.jp/app/">
 <meta name="robots" content="index,follow">
 <meta name="theme-color" content="#2563eb">
@@ -100,26 +100,14 @@ h2.sec{font-size:21px;margin:26px 0 8px}
   <div class="band">
     <a href="../">← サブポイ トップ</a>
     <h1>無料スキャン</h1>
-    <p>連携するか、貼り付けるだけ。スクリーンショットからも読み込めます。登録は不要です。定期課金を自動で検出して金額を見せ、面倒な解約も認証とボタン以外は全部自動で進めます。<strong>CSVへの変換は不要です。</strong></p>
+    <p>貼り付けるだけ。ファイルやスクリーンショットからも読み込めます。登録は不要です。定期課金を自動で検出して金額を見せ、面倒な解約も認証とボタン以外は全部自動で進めます。<strong>CSVへの変換は不要です。</strong></p>
     <div class="steps">
-      <span class="stepchip"><b>STEP 1</b> 連携するだけ</span>
+      <span class="stepchip"><b>STEP 1</b> 明細を取り込む</span>
       <span class="stepchip"><b>STEP 2</b> 金額が見える</span>
       <span class="stepchip"><b>STEP 3</b> 解約はボタンだけ</span>
     </div>
   </div>
 
-  <section class="panel connect">
-    <h2>家計簿サービスと連携する</h2>
-    <p>対応サービスを選んでボタンを押すだけ。明細が届き、定期課金の検出まで自動で進みます。</p>
-    <div class="chips">
-      <span class="chip">マネーフォワード ME</span>
-      <span class="chip">楽天カード・楽天銀行</span>
-      <span class="chip">銀行・カード各社</span>
-    </div>
-    <button class="bigbtn" id="connectBtn">ワンタップで連携して取り込む</button>
-    <div class="status" id="connectStatus"></div>
-    <p class="note">※ デモ連携です。サンプルデータで一連の流れを確認できます。本番のワンタップ連携は有料版で提供予定（事前登録受付中）。連携は読み取り専用で、認証情報を預かることはありません。</p>
-  </section>
 
   <div class="alt">
     <section class="panel">
@@ -165,7 +153,7 @@ h2.sec{font-size:21px;margin:26px 0 8px}
   <div id="result"></div>
   <section id="after" hidden>
     <h2 class="sec">ここから先は、全部自動にできます</h2>
-    <p>検出はここまで無料です。見守りプラン（月¥500）を有効化すると、明細が自動で届いて継続的に見張ります。</p>
+    <p>検出はここまで無料です。見守りプラン（月¥500）を有効化すると、継続的な見守りが始まります。</p>
     <ul>
       <li>新しいサブスクの発生・値上げ・無料トライアルの有料化をお知らせ</li>
       <li>解約したはずの請求の再発をチェック</li>

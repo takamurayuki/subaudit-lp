@@ -87,7 +87,7 @@ ${g.url ? `<p><a class="cta" href="${esc(g.url)}" target="_blank" rel="noopener"
 <li><span class="tag auto">自動</span> 金額（月額・累計・削減見込み）と解約ページを用意</li>
 <li><span class="tag user">本人</span> ログイン認証と、最後に解約ボタンを押すだけ。それ以外（遷移・入力・確認画面の記録）は自動です</li>
 </ol>
-<p class="note">有料版では、家計簿サービスとの連携で明細が自動で届き、解約ページへの移動と入力補助まで自動化します。認証情報は預かりません。</p>
+<p class="note">有料版では、新しい明細を取り込むたびに定期課金を継続チェックし、解約ページへの移動と入力補助まで自動化します。認証情報は預かりません。</p>
 </div>
 <div class="cards">${cards}</div>
 ${fixedList}
@@ -135,24 +135,4 @@ setupOcr({ parseStatementText, render });
 // ブラウザ拡張からの取り込み（拡張が保留データを CustomEvent で渡してくる）
 window.addEventListener("subpoi:import", (e) => {
   if (typeof e.detail === "string" && e.detail) render(e.detail);
-});
-
-// ワンタップ連携（デモ）: 連携→取得→検出の進行を見せてから、サンプル明細で結果を表示する。
-const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
-document.getElementById("connectBtn").addEventListener("click", async () => {
-  const btn = document.getElementById("connectBtn");
-  const status = document.getElementById("connectStatus");
-  btn.disabled = true;
-  status.classList.add("on");
-  const steps = ["連携しています…", "明細を取得しています…", "定期課金を検出しています…"];
-  status.innerHTML = "";
-  for (const s of steps) {
-    status.innerHTML += `<div>▶ ${s}</div>`;
-    await sleep(850);
-  }
-  status.innerHTML += `<div class="done">✓ 連携が完了しました（デモ：サンプルデータで検出結果を表示します）</div>`;
-  render(SAMPLE);
-  await sleep(150);
-  document.getElementById("result").scrollIntoView({ behavior: "smooth", block: "start" });
-  btn.disabled = false;
 });
